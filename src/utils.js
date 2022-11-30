@@ -1,7 +1,7 @@
 const { schedule, routines } = require("./data");
 const moment = require("moment");
 
-var id_routine = 5;
+var id_routine = 0;
 
 const getMsgFromGroup = async (client) => {
   const chats = await client.getChats();
@@ -36,26 +36,31 @@ const currentTime = () => {
 };
 
 const getWeekDay = () => {
+  // const day = moment().format("dddd");
   const day = moment().format("dddd");
   return day;
 };
 
-const getRoutine = () => {
-  if (id_routine > routines.length) {
+const getRoutine = (alreadySentMsg) => {
+  if (id_routine == 6) {
     id_routine = 0;
   }
-
   const day = getWeekDay();
   const currentDay = schedule.find((item) => item.day === day);
-  if (id_routine > routines.length) {
-    id_routine = 0;
-  }
   if (currentDay.isWorkDay) {
-    const routine = routines[id_routine];
-    id_routine++;
-    return routine;
+    if (!alreadySentMsg) {
+      const routine = `hoy te toca *${routines[id_routine]}*`;
+      const bool = true;
+      id_routine++;
+      return { routine, bool };
+    } else {
+      const routine = `hoy te toca *${routines[id_routine - 1]}*`;
+      const bool = true;
+      console.log("ya se envio");
+      return { routine, bool };
+    }
   } else {
-    return "No hay rutina para hoy";
+    return { routine: "hoy es dia de descanso" };
   }
 };
 

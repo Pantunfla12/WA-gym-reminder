@@ -12,6 +12,7 @@ const {
   getRoutine,
 } = require("./src/utils");
 
+var alreadySentMsg = false;
 const customId = "client-id";
 const authStrategy = new LocalAuth({ clientId: customId });
 
@@ -38,16 +39,28 @@ client.on("qr", (qr) => {
 client.on("ready", () => {
   console.log("Client is ready!");
   sendMsgToGroup("Bot is ready!", client);
-  //   setInterval(() => {
-  //     const obj = currentTime();
-  //     const { hour } = obj;
-  //     if (hour == 6) {
-  //       sendMsgToGroup();
-  //     }
-  //   }, 1000);
+  setInterval(() => {
+    const { hour } = currentTime();
+    if (hour == 1) {
+      alreadySentMsg = false;
+    }
+    if (hour == 6) {
+      const { routine, bool } = getRoutine(alreadySentMsg);
+      alreadySentMsg = bool;
+      sendMsgToGroup("Buenos dias!", client);
+      sendMsgToGroup(routine, client);
+    }
+  }, 1000);
 });
 
 client.on("message", (msg) => {
+  if (msg.body === "!rutina") {
+    const { routine, bool } = getRoutine(alreadySentMsg);
+    alreadySentMsg = bool;
+    // console.log("rutina es:", routine);
+    // console.log("rutina", routine);
+    msg.reply(routine);
+  }
   if (msg.body === "ping") {
     msg.reply("pong");
   }
@@ -55,15 +68,15 @@ client.on("message", (msg) => {
 
 client.on("message_create", (msg) => {
   if (msg.fromMe) {
-    console.log("Message from me", msg.body);
+    // console.log("Message from me", msg.body);
 
     if (msg.body === "dime la fecha") {
       msg.reply(getDate());
     }
 
-    if (msg.body === "rutina") {
-      const routine = getRoutine();
-      console.log("rutina", routine);
+    if (msg.body === "!rutina") {
+      const { routine, bool } = getRoutine(alreadySentMsg);
+      alreadySentMsg = bool;
       msg.reply(routine);
     }
   }
