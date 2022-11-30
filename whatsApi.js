@@ -1,8 +1,35 @@
 const qrcode = require("qrcode-terminal");
-const { ChatTypes } = require("whatsapp-web.js");
+const { Client, LocalAuth } = require("whatsapp-web.js");
+const fs = require("fs");
+const moment = require("moment");
+const { routines, schedule } = require("./src/data");
+const {
+  getMsgFromGroup,
+  sendMsgToGroup,
+  getDate,
+  currentTime,
+  getWeekDay,
+  getRoutine,
+} = require("./src/utils");
 
-const { Client } = require("whatsapp-web.js");
-const client = new Client();
+const customId = "client-id";
+const authStrategy = new LocalAuth({ clientId: customId });
+
+const worker = `${authStrategy.dataPath}/session-${customId}/Default/Service Worker`;
+
+if (fs.existsSync(worker)) {
+  fs.rmdirSync(worker, { recursive: true });
+}
+
+const client = new Client({
+  authStrategy,
+});
+
+client.initialize();
+
+client.on("loading_screen", (percent, message) => {
+  console.log("LOADING SCREEN", percent, message);
+});
 
 client.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
@@ -10,14 +37,14 @@ client.on("qr", (qr) => {
 
 client.on("ready", () => {
   console.log("Client is ready!");
-  sendMsgToGroup("Bot is ready!");
-  setInterval(() => {
-    const obj = currentTime();
-    const { hour } = obj;
-    if (hour == 6) {
-      sendMsgToGroup();
-    }
-  }, 1000);
+  sendMsgToGroup("Bot is ready!", client);
+  //   setInterval(() => {
+  //     const obj = currentTime();
+  //     const { hour } = obj;
+  //     if (hour == 6) {
+  //       sendMsgToGroup();
+  //     }
+  //   }, 1000);
 });
 
 client.on("message", (msg) => {
@@ -33,54 +60,11 @@ client.on("message_create", (msg) => {
     if (msg.body === "dime la fecha") {
       msg.reply(getDate());
     }
+
+    if (msg.body === "rutina") {
+      const routine = getRoutine();
+      console.log("rutina", routine);
+      msg.reply(routine);
+    }
   }
 });
-
-const getMsgFromGroup = async () => {
-  const chats = await client.getChats();
-  chats.map((chat) => {
-    if (chat.isGroup && chat.name === "testing") {
-      chat.fetchMessages({ limit: 10 }).then((messages) => {
-        messages.map((message) => {
-          console.log(message.body);
-        });
-      });
-    }
-  });
-};
-
-const sendMsgToGroup = async (msg) => {
-  const chats = await client.getChats();
-  chats.map((chat) => {
-    if (chat.isGroup && chat.name === "testing") {
-      chat.sendMessage(msg);
-    }
-  });
-};
-
-const getDate = () => {
-  const date = new Date();
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
-  //   return `${day}/${month}/${year} ${hour}:${minute}:${second}`;
-  return {
-    day,
-    month,
-    year,
-    hour,
-    minute,
-    second,
-  };
-};
-
-const currentTime = () => {
-  const date = getDate();
-  const { hour, minute, second } = date;
-  return { hour, minute, second };
-};
-
-client.initialize();

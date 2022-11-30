@@ -1,0 +1,15 @@
+2022/11/29-23:42:30.163 23c Reusing MANIFEST C:\Users\Admin\Desktop\gym-reminder\.wwebjs_auth\session-client-id\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/11/29-23:42:30.163 23c Recovering log #145
+2022/11/29-23:42:30.341 23c Reusing old log C:\Users\Admin\Desktop\gym-reminder\.wwebjs_auth\session-client-id\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000145.log 
+2022/11/29-23:42:42.682 1828 Level-0 table #155: started
+2022/11/29-23:42:42.829 1828 Level-0 table #155: 1219280 bytes OK
+2022/11/29-23:42:42.870 1828 Delete type=0 #145
+2022/11/29-23:42:42.952 55dc Compacting 1@1 + 6@2 files
+2022/11/29-23:42:43.656 55dc Generated table #156@1: 29460 keys, 2276894 bytes
+2022/11/29-23:42:43.889 55dc Generated table #157@1: 25983 keys, 2185598 bytes
+2022/11/29-23:42:44.045 55dc Generated table #158@1: 2367 keys, 2152915 bytes
+2022/11/29-23:42:44.287 55dc Generated table #159@1: 17650 keys, 2204792 bytes
+2022/11/29-23:42:44.557 55dc Generated table #160@1: 46730 keys, 2229932 bytes
+2022/11/29-23:42:44.710 55dc Generated table #161@1: 39196 keys, 882806 bytes
+2022/11/29-23:42:44.710 55dc Compacted 1@1 + 6@2 files => 11932937 bytes
+2022/11/29-23:42:44.744 55dc compacted to: files[ 0 0 6 0 0 0 0 ]
