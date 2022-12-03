@@ -1,14 +1,10 @@
 const qrcode = require("qrcode-terminal");
 const { Client, LocalAuth } = require("whatsapp-web.js");
 const fs = require("fs");
-const moment = require("moment");
-const { routines, schedule } = require("./src/data");
 const {
-  getMsgFromGroup,
   sendMsgToGroup,
   getDate,
   currentTime,
-  getWeekDay,
   getRoutine,
 } = require("./src/utils");
 
@@ -57,12 +53,14 @@ client.on("message", (msg) => {
   if (msg.body === "!rutina") {
     const { routine, bool } = getRoutine(alreadySentMsg);
     alreadySentMsg = bool;
-    // console.log("rutina es:", routine);
-    // console.log("rutina", routine);
     msg.reply(routine);
   }
   if (msg.body === "ping") {
     msg.reply("pong");
+  }
+
+  if (msg.body === "dime la fecha") {
+    msg.reply(getDate());
   }
 });
 

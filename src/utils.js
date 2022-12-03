@@ -1,7 +1,7 @@
 const { schedule, routines } = require("./data");
 const moment = require("moment");
 
-var id_routine = 0;
+var id_routine = 1;
 
 const getMsgFromGroup = async (client) => {
   const chats = await client.getChats();
@@ -9,7 +9,7 @@ const getMsgFromGroup = async (client) => {
     if (chat.isGroup && chat.name === "testing") {
       chat.fetchMessages({ limit: 10 }).then((messages) => {
         messages.map((message) => {
-          console.log(message.body);
+          // console.log(message.body);
         });
       });
     }
@@ -56,7 +56,7 @@ const getRoutine = (alreadySentMsg) => {
     } else {
       const routine = `hoy te toca *${routines[id_routine - 1]}*`;
       const bool = true;
-      console.log("ya se envio");
+      // console.log("ya se envio");
       return { routine, bool };
     }
   } else {
