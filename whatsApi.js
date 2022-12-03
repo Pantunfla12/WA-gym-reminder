@@ -14,10 +14,6 @@ const authStrategy = new LocalAuth({ clientId: customId });
 
 const worker = `${authStrategy.dataPath}/session-${customId}/Default/Service Worker`;
 
-const browser = await puppeteer.launch({
-  executablePath: "/usr/bin/chromium-browser",
-});
-
 if (fs.existsSync(worker)) {
   fs.rmdirSync(worker, { recursive: true });
 }
