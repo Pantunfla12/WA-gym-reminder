@@ -49,18 +49,18 @@ const getRoutine = (alreadySentMsg) => {
   const currentDay = schedule.find((item) => item.day === day);
   if (currentDay.isWorkDay) {
     if (!alreadySentMsg) {
-      const routine = `hoy te toca *${routines[id_routine]}*`;
+      const routine = `Hoy te toca *${routines[id_routine]}*`;
       const bool = true;
       id_routine++;
       return { routine, bool };
     } else {
-      const routine = `hoy te toca *${routines[id_routine - 1]}*`;
+      const routine = `Hoy te toca *${routines[id_routine - 1]}*`;
       const bool = true;
       // console.log("ya se envio");
       return { routine, bool };
     }
   } else {
-    return { routine: "hoy es dia de descanso" };
+    return { routine: "Hoy es dia de descanso" };
   }
 };
 
