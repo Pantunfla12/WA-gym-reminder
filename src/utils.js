@@ -1,6 +1,6 @@
 const { schedule, routines } = require("./data");
-const moment = require("moment");
-
+const moment = require("moment-timezone");
+moment().tz("America/Mexico_City").format();
 var id_routine = 1;
 
 const getMsgFromGroup = async (client) => {
