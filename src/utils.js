@@ -1,6 +1,6 @@
 const { schedule, routines } = require("./data");
 const moment = require("moment-timezone");
-moment().tz("America/Mexico_City").format();
+const mex = moment().tz("America/Mexico_City");
 var id_routine = 1;
 
 const getMsgFromGroup = async (client) => {
@@ -26,17 +26,20 @@ const sendMsgToGroup = async (msg, client) => {
 };
 
 const getDate = () => {
-  const date = moment().format("DD/MM/YYYY");
+  // const date = moment().format("DD/MM/YYYY");
+  const date = mex.format("DD/MM/YYYY");
   return date;
 };
 
 const currentTime = () => {
-  const time = moment().format("H:mm:ss");
+  // const time = moment().format("H:mm:ss");
+  const time = mex.format("H:mm:ss");
   return time;
 };
 
 const getWeekDay = () => {
-  const day = moment().format("dddd");
+  // const day = moment().format("dddd");
+  const day = mex.format("dddd");
   return day;
 };
 
