@@ -66,10 +66,10 @@ const getRoutine = (alreadySentMsg) => {
   }
 };
 
-const comandList = (msg) => {
+const commandList = (msg) => {
   if (msg.body === "!comandos") {
     return msg.reply(
-      "Estos son los comandos disponibles: !comandos, !rutina, !help"
+      "Estos son los comandos disponibles: !comandos, !rutina, !ping, !help"
     );
   }
 
@@ -81,8 +81,18 @@ const comandList = (msg) => {
     return msg.reply("*!rutina* Sirve para ver la rutina del dia");
   }
 
-  if (msg.body === "!help help") {
-    return msg.reply("*!help* Sirve para ver la ayuda del bot");
+  if (msg.body === "!help") {
+    return msg.reply(
+      "Este comando te da información sobre los comandos disponibles"
+    );
+  }
+
+  if (msg.body === "!ping") {
+    msg.reply("pong!");
+  }
+
+  if (msg.body === "!ping help") {
+    return msg.reply("*!ping* Sirve para probar si el bot esta activo");
   }
 };
 
@@ -93,5 +103,5 @@ module.exports = {
   currentTime,
   getWeekDay,
   getRoutine,
-  comandList,
+  commandList,
 };

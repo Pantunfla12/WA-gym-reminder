@@ -6,7 +6,7 @@ const {
   getDate,
   currentTime,
   getRoutine,
-  comandList,
+  commandList,
 } = require("./src/utils");
 
 var alreadySentMsg = false;
@@ -52,22 +52,12 @@ client.on("ready", () => {
 
 client.on("message", (msg) => {
   //command list
-
-  comandList(msg);
-
-  /*-------------------------------- */
+  commandList(msg);
 
   if (msg.body === "!rutina") {
     const { routine, bool } = getRoutine(alreadySentMsg);
     alreadySentMsg = bool;
     msg.reply(routine);
-  }
-  if (msg.body === "ping") {
-    msg.reply("pong");
-  }
-
-  if (msg.body === "!fecha") {
-    msg.reply(getDate());
   }
 });
 
@@ -75,25 +65,13 @@ client.on("message", (msg) => {
 
 client.on("message_create", (msg) => {
   if (msg.fromMe) {
-    // console.log("Message from me", msg.body);
-
     //command list
-
-    comandList(msg);
-
-    /*-------------------------------- */
+    commandList(msg);
 
     if (msg.body === "!rutina") {
       const { routine, bool } = getRoutine(alreadySentMsg);
       alreadySentMsg = bool;
       msg.reply(routine);
-    }
-    if (msg.body === "ping") {
-      msg.reply("pong");
-    }
-
-    if (msg.body === "!fecha") {
-      msg.reply(getDate());
     }
   }
 });
