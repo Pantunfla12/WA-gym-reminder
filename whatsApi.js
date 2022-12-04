@@ -72,6 +72,10 @@ client.on("message_create", (msg) => {
       msg.reply(getDate());
     }
 
+    if (msg.body === "dime la hora") {
+      msg.reply(currentTime());
+    }
+
     if (msg.body === "!rutina") {
       const { routine, bool } = getRoutine(alreadySentMsg);
       alreadySentMsg = bool;

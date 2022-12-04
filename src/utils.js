@@ -1,6 +1,5 @@
 const { schedule, routines } = require("./data");
 const moment = require("moment");
-moment.locale("es-mx");
 
 var id_routine = 1;
 
