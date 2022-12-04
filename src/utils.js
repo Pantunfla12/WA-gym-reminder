@@ -1,5 +1,6 @@
 const { schedule, routines } = require("./data");
 const moment = require("moment");
+moment.locale("es-mx");
 
 var id_routine = 1;
 
@@ -36,7 +37,6 @@ const currentTime = () => {
 };
 
 const getWeekDay = () => {
-  // const day = moment().format("dddd");
   const day = moment().format("dddd");
   return day;
 };
