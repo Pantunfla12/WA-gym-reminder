@@ -1,4 +1,4 @@
-const { schedule, routines } = require("./data");
+const { schedule, routines, comandos } = require("./data");
 const moment = require("moment-timezone");
 moment.tz.setDefault("America/Mexico_City");
 var id_routine = 1;
@@ -69,34 +69,17 @@ const getRoutine = (alreadySentMsg) => {
 const commandList = (msg) => {
   if (msg.body === "!comandos") {
     return msg.reply(
-      "Estos son los comandos disponibles:\n",
-      "-!comandos - Lista de comandos\n",
-      "-!rutina - Rutina del dia\n",
-      "-!ping - Pong\n",
-      "-!help - Ayuda"
+      "Estos son los comandos disponibles: \n" +
+        comandos.map((item) => item).join("\n")
     );
   }
 
-  if (msg.body === "!comandos help") {
-    return msg.reply("*!comandos* Sirve para ver los comandos disponibles");
-  }
-
-  if (msg.body === "!rutina help") {
-    return msg.reply("*!rutina* Sirve para ver la rutina del dia");
-  }
-
-  if (msg.body === "!help") {
-    return msg.reply(
-      "Este comando te da información sobre los comandos disponibles"
-    );
+  if (msg.body === "!only") {
+    return msg.reply("🤨📸");
   }
 
   if (msg.body === "!ping") {
     msg.reply("pong!");
-  }
-
-  if (msg.body === "!ping help") {
-    return msg.reply("*!ping* Sirve para probar si el bot esta activo");
   }
 };
 
