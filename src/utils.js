@@ -68,12 +68,16 @@ const getRoutine = (alreadySentMsg) => {
 
 const commandList = (msg) => {
   if (msg.body === "!comandos") {
+    // return msg.reply(
+    //   `Estos son los comandos disponibles:
+    //   !comandos - Lista de comandos
+    //   !rutina - Rutina del dia
+    //   !ping - Pong
+    //   !help - Ayuda
+    // `
+    // );
     return msg.reply(
-      `Estos son los comandos disponibles: 
-      !comandos - Lista de comandos
-      !rutina - Rutina del dia
-      !ping - Pong
-      !help - Ayuda`
+      "Estos son los comandos disponibles:\n!comandos - Lista de comandos\n!rutina - Rutina del dia\n!ping - Pong\n!help - Ayuda"
     );
   }
 
