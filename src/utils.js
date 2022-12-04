@@ -3,10 +3,10 @@ const moment = require("moment-timezone");
 moment.tz.setDefault("America/Mexico_City");
 var id_routine = 1;
 
-const getMsgFromGroup = async (client) => {
+const getMsgFromGroup = async (client, group) => {
   const chats = await client.getChats();
   chats.map((chat) => {
-    if (chat.isGroup && chat.name === "testing") {
+    if (chat.isGroup && chat.name === group) {
       chat.fetchMessages({ limit: 10 }).then((messages) => {
         messages.map((message) => {
           // console.log(message.body);
@@ -16,10 +16,10 @@ const getMsgFromGroup = async (client) => {
   });
 };
 
-const sendMsgToGroup = async (msg, client) => {
+const sendMsgToGroup = async (msg, client, group) => {
   const chats = await client.getChats();
   chats.map((chat) => {
-    if (chat.isGroup && chat.name === "testing") {
+    if (chat.isGroup && chat.name === group) {
       chat.sendMessage(msg);
     }
   });
@@ -66,6 +66,26 @@ const getRoutine = (alreadySentMsg) => {
   }
 };
 
+const comandList = (msg) => {
+  if (msg.body === "!comandos") {
+    return msg.reply(
+      "Estos son los comandos disponibles: !comandos, !rutina, !help"
+    );
+  }
+
+  if (msg.body === "!comandos help") {
+    return msg.reply("*!comandos* Sirve para ver los comandos disponibles");
+  }
+
+  if (msg.body === "!rutina help") {
+    return msg.reply("*!rutina* Sirve para ver la rutina del dia");
+  }
+
+  if (msg.body === "!help help") {
+    return msg.reply("*!help* Sirve para ver la ayuda del bot");
+  }
+};
+
 module.exports = {
   getMsgFromGroup,
   sendMsgToGroup,
@@ -73,4 +93,5 @@ module.exports = {
   currentTime,
   getWeekDay,
   getRoutine,
+  comandList,
 };

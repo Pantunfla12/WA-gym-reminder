@@ -6,6 +6,7 @@ const {
   getDate,
   currentTime,
   getRoutine,
+  comandList,
 } = require("./src/utils");
 
 var alreadySentMsg = false;
@@ -34,7 +35,7 @@ client.on("qr", (qr) => {
 
 client.on("ready", () => {
   console.log("Client is ready!");
-  sendMsgToGroup("Bot is ready!", client);
+  sendMsgToGroup("Bot is ready!", client, "Gym");
   setInterval(() => {
     const { hour } = currentTime();
     if (hour == 1) {
@@ -43,13 +44,19 @@ client.on("ready", () => {
     if (hour == 6) {
       const { routine, bool } = getRoutine(alreadySentMsg);
       alreadySentMsg = bool;
-      sendMsgToGroup("Buenos dias!", client);
-      sendMsgToGroup(routine, client);
+      sendMsgToGroup("Buenos dias!", client, "Gym");
+      sendMsgToGroup(routine, client, "Gym");
     }
   }, 1000);
 });
 
 client.on("message", (msg) => {
+  //command list
+
+  comandList(msg);
+
+  /*-------------------------------- */
+
   if (msg.body === "!rutina") {
     const { routine, bool } = getRoutine(alreadySentMsg);
     alreadySentMsg = bool;
@@ -59,27 +66,34 @@ client.on("message", (msg) => {
     msg.reply("pong");
   }
 
-  if (msg.body === "dime la fecha") {
+  if (msg.body === "!fecha") {
     msg.reply(getDate());
   }
 });
+
+//read my own messages
 
 client.on("message_create", (msg) => {
   if (msg.fromMe) {
     // console.log("Message from me", msg.body);
 
-    if (msg.body === "dime la fecha") {
-      msg.reply(getDate());
-    }
+    //command list
 
-    if (msg.body === "dime la hora") {
-      msg.reply(currentTime());
-    }
+    comandList(msg);
+
+    /*-------------------------------- */
 
     if (msg.body === "!rutina") {
       const { routine, bool } = getRoutine(alreadySentMsg);
       alreadySentMsg = bool;
       msg.reply(routine);
+    }
+    if (msg.body === "ping") {
+      msg.reply("pong");
+    }
+
+    if (msg.body === "!fecha") {
+      msg.reply(getDate());
     }
   }
 });
