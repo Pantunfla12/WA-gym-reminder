@@ -47,7 +47,7 @@ client.on("ready", () => {
       sendMsgToGroup("Buenos dias!", client, "Gym");
       sendMsgToGroup(routine, client, "Gym");
     }
-  }, 1000);
+  }, 60000);
 });
 
 client.on("message", (msg) => {
