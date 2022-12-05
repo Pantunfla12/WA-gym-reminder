@@ -32,8 +32,8 @@ const getDate = () => {
 };
 
 const currentTime = () => {
-  // const time = moment().format("H:mm:ss");
-  const time = 6;
+  const time = moment().format("H:mm:ss");
+
   return time;
 };
 
