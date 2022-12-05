@@ -36,8 +36,9 @@ client.on("qr", (qr) => {
 client.on("ready", () => {
   console.log("Client is ready!");
   sendMsgToGroup("Bot is ready!", client, "Gym");
-  setInterval(() => {
-    const { hour } = currentTime();
+
+  const interval = () => {
+    const hour = currentTime();
     if (hour == 1) {
       alreadySentMsg = false;
     }
@@ -47,7 +48,9 @@ client.on("ready", () => {
       sendMsgToGroup("Buenos dias!", client, "Gym");
       sendMsgToGroup(routine, client, "Gym");
     }
-  }, 60000);
+    setTimeout(interval, 3600000);
+  };
+  interval();
 });
 
 client.on("message", (msg) => {
