@@ -39,8 +39,7 @@ client.on("ready", () => {
 
   const interval = () => {
     const hour = currentTime();
-
-    if (hour === 0) {
+    if (hour == 0) {
       sendMsgToGroup(
         "Ignora este mensaje, solo es para verificar que ahora mismo son las 12 am",
         client,

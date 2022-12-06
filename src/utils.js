@@ -1,7 +1,7 @@
 const { schedule, routines, comandos } = require("./data");
 const moment = require("moment-timezone");
 moment.tz.setDefault("America/Mexico_City");
-var id_routine = 2;
+var id_routine = 3;
 
 const getMsgFromGroup = async (client, group) => {
   const chats = await client.getChats();
@@ -32,7 +32,7 @@ const getDate = () => {
 };
 
 const currentTime = () => {
-  const time = moment().format("H:mm:ss");
+  const time = moment().format("H");
 
   return time;
 };
