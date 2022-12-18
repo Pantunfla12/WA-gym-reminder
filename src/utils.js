@@ -1,7 +1,6 @@
 const { schedule, routines, comandos } = require("./data");
 const moment = require("moment-timezone");
 moment.tz.setDefault("America/Mexico_City");
-var id_routine = 3;
 
 const getMsgFromGroup = async (client, group) => {
   const chats = await client.getChats();
@@ -39,11 +38,12 @@ const currentTime = () => {
 
 const getWeekDay = () => {
   const day = moment().format("dddd");
+  const tomorrow = moment().add(1, "days").format("dddd");
   // const day = mex.format("dddd");
-  return day;
+  return tomorrow;
 };
 
-const getRoutine = (alreadySentMsg) => {
+const getRoutine = (alreadySentMsg, id_routine) => {
   if (id_routine == 6) {
     id_routine = 0;
   }
@@ -54,7 +54,7 @@ const getRoutine = (alreadySentMsg) => {
       const routine = `Hoy te toca *${routines[id_routine]}*`;
       const bool = true;
       id_routine++;
-      return { routine, bool };
+      return { routine, bool, id_routine };
     } else {
       const routine = `Hoy te toca *${routines[id_routine - 1]}*`;
       const bool = true;

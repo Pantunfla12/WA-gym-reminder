@@ -10,9 +10,9 @@ const routines = [
 const schedule = [
   { day: "Monday", isWorkDay: true },
   { day: "Tuesday", isWorkDay: true },
-  { day: "Wednesday", isWorkDay: false },
+  { day: "Wednesday", isWorkDay: true },
   { day: "Thursday", isWorkDay: true },
-  { day: "Friday", isWorkDay: false },
+  { day: "Friday", isWorkDay: true },
   { day: "Saturday", isWorkDay: true },
   { day: "Sunday", isWorkDay: false },
 ];

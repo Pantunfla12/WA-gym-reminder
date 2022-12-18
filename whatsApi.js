@@ -10,6 +10,7 @@ const {
 } = require("./src/utils");
 
 var alreadySentMsg = false;
+var id_routine = 0;
 const customId = "client-id";
 const authStrategy = new LocalAuth({ clientId: customId });
 
@@ -50,8 +51,9 @@ client.on("ready", () => {
       alreadySentMsg = false;
     }
     if (hour == 6) {
-      const { routine, bool } = getRoutine(alreadySentMsg);
+      const { routine, bool, id } = getRoutine(alreadySentMsg, id_routine);
       alreadySentMsg = bool;
+      id_routine = id;
       sendMsgToGroup("Buenos dias!", client, "Gym");
       sendMsgToGroup(routine, client, "Gym");
     }
@@ -65,8 +67,9 @@ client.on("message", (msg) => {
   commandList(msg);
 
   if (msg.body === "!rutina") {
-    const { routine, bool } = getRoutine(alreadySentMsg);
+    const { routine, bool, id } = getRoutine(alreadySentMsg, id_routine);
     alreadySentMsg = bool;
+    id_routine = id;
     msg.reply(routine);
   }
 
@@ -161,8 +164,9 @@ client.on("message_create", (msg) => {
     commandList(msg);
 
     if (msg.body === "!rutina") {
-      const { routine, bool } = getRoutine(alreadySentMsg);
+      const { routine, bool, id } = getRoutine(alreadySentMsg, id_routine);
       alreadySentMsg = bool;
+      id_routine = id;
       msg.reply(routine);
     }
 
