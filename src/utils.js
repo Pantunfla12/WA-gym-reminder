@@ -38,9 +38,9 @@ const currentTime = () => {
 
 const getWeekDay = () => {
   const day = moment().format("dddd");
-  const tomorrow = moment().add(1, "days").format("dddd");
+  // const tomorrow = moment().add(1, "days").format("dddd");
   // const day = mex.format("dddd");
-  return tomorrow;
+  return day;
 };
 
 const getRoutine = (alreadySentMsg, id_routine) => {
