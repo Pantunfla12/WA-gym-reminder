@@ -17,7 +17,7 @@ const authStrategy = new LocalAuth({ clientId: customId });
 const worker = `${authStrategy.dataPath}/session-${customId}/Default/Service Worker`;
 
 if (fs.existsSync(worker)) {
-  fs.rmdirSync(worker, { recursive: true });
+  fs.rm(worker, { recursive: true });
 }
 
 const client = new Client({
