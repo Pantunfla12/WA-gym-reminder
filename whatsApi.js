@@ -9,7 +9,6 @@ const {
   commandList,
 } = require("./src/utils");
 
-var alreadySentMsg = false;
 var id_routine = 0;
 const customId = "client-id";
 const authStrategy = new LocalAuth({ clientId: customId });
@@ -42,20 +41,12 @@ client.on("ready", () => {
 
   const interval = () => {
     const hour = currentTime();
+
     if (hour == 0) {
-      sendMsgToGroup(
-        "Ignora este mensaje, solo es para verificar que ahora mismo son las 12 am",
-        client,
-        "Gym"
-      );
-    }
-    if (hour == 1) {
-      alreadySentMsg = false;
+      id_routine++;
     }
     if (hour == 6) {
-      const { routine, bool, id } = getRoutine(alreadySentMsg, id_routine);
-      alreadySentMsg = bool;
-      id_routine = id;
+      const routine = getRoutine(id_routine);
       sendMsgToGroup("Buenos dias!", client, "Gym");
       sendMsgToGroup(routine, client, "Gym");
     }
@@ -69,9 +60,7 @@ client.on("message", (msg) => {
   commandList(msg);
 
   if (msg.body === "!rutina") {
-    const { routine, bool, id } = getRoutine(alreadySentMsg, id_routine);
-    alreadySentMsg = bool;
-    id_routine = id;
+    const routine = getRoutine(id_routine);
     msg.reply(routine);
   }
 
@@ -166,10 +155,9 @@ client.on("message_create", (msg) => {
     commandList(msg);
 
     if (msg.body === "!rutina") {
-      const { routine, bool, id } = getRoutine(alreadySentMsg, id_routine);
-      alreadySentMsg = bool;
-      id_routine = id;
+      const routine = getRoutine(id_routine);
       msg.reply(routine);
+      console.log("se envio este mensaje: ", routine);
     }
 
     if (msg.body === "!sticker") {

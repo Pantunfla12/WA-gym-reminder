@@ -43,24 +43,15 @@ const getWeekDay = () => {
   return day;
 };
 
-const getRoutine = (alreadySentMsg, id_routine) => {
+const getRoutine = (id_routine) => {
   if (id_routine == 6) {
     id_routine = 0;
   }
   const day = getWeekDay();
   const currentDay = schedule.find((item) => item.day === day);
   if (currentDay.isWorkDay) {
-    if (!alreadySentMsg) {
-      const routine = `Hoy te toca *${routines[id_routine]}*`;
-      const bool = true;
-      id_routine++;
-      return { routine, bool, id_routine };
-    } else {
-      const routine = `Hoy te toca *${routines[id_routine - 1]}*`;
-      const bool = true;
-      // console.log("ya se envio");
-      return { routine, bool };
-    }
+    const routine = `Hoy te toca *${routines[id_routine]}*`;
+    return routine;
   } else {
     return { routine: "Hoy es dia de descanso" };
   }
