@@ -1,10 +1,9 @@
 const routines = [
   "Pectoral - Triceps",
-  "Abdomen - Cardio",
+  "Abdomen - Femorales - Gluteos",
   "Espalda - Biceps",
   "Cuadriceps - Pantorrillas",
   "Abdomen - Hombros",
-  "Femorales - Glúteos",
 ];
 
 const schedule = [
