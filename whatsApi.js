@@ -8,6 +8,7 @@ const {
   getRoutine,
   commandList,
 } = require("./src/utils");
+const { routines } = require("./src/data");
 
 var id_routine = 0;
 const customId = "client-id";
@@ -43,7 +44,11 @@ client.on("ready", () => {
     const hour = currentTime();
 
     if (hour == 0) {
-      id_routine++;
+      if (id_routine > routines.length) {
+        id_routine = 0;
+      } else {
+        id_routine++;
+      }
     }
     if (hour == 6) {
       const routine = getRoutine(id_routine);

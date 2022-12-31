@@ -44,9 +44,6 @@ const getWeekDay = () => {
 };
 
 const getRoutine = (id_routine) => {
-  if (id_routine > routines.length - 1) {
-    id_routine = 0;
-  }
   const day = getWeekDay();
   const currentDay = schedule.find((item) => item.day === day);
   if (currentDay.isWorkDay) {
