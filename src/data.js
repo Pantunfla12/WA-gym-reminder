@@ -12,7 +12,7 @@ const schedule = [
   { day: "Wednesday", isWorkDay: true },
   { day: "Thursday", isWorkDay: true },
   { day: "Friday", isWorkDay: true },
-  { day: "Saturday", isWorkDay: true },
+  { day: "Saturday", isWorkDay: false },
   { day: "Sunday", isWorkDay: false },
 ];
 
