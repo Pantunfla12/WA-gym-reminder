@@ -44,7 +44,7 @@ const getWeekDay = () => {
 };
 
 const getRoutine = (id_routine) => {
-  if (id_routine == 6) {
+  if (id_routine > routines.length - 1) {
     id_routine = 0;
   }
   const day = getWeekDay();
