@@ -18,10 +18,10 @@ const schedule = [
 
 const comandos = [
   "•!comandos - Lista de comandos",
-  "•!rutina - te dice que rutina es hoy",
+  // "•!rutina - te dice que rutina es hoy",
   "•!ping - pong",
   "•!sticker - te manda un sticker",
-  "•!only - ?",
+  // "•!only - ?",
 ];
 
 module.exports = { routines, schedule, comandos };

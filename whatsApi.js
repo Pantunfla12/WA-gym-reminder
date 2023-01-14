@@ -10,7 +10,7 @@ const {
 } = require("./src/utils");
 const { routines } = require("./src/data");
 
-var id_routine = 0;
+// var id_routine = 0;
 const customId = "client-id";
 const authStrategy = new LocalAuth({ clientId: customId });
 
@@ -38,36 +38,36 @@ client.on("qr", (qr) => {
 
 client.on("ready", () => {
   console.log("Client is ready!");
-  sendMsgToGroup("Bot is ready!", client, "Gym");
+  // sendMsgToGroup("Bot is ready!", client, "Gym");
 
-  const interval = () => {
-    const hour = currentTime();
+  // const interval = () => {
+  //   const hour = currentTime();
 
-    if (hour == 0) {
-      if (id_routine > routines.length) {
-        id_routine = 0;
-      } else {
-        id_routine++;
-      }
-    }
-    if (hour == 6) {
-      const routine = getRoutine(id_routine);
-      sendMsgToGroup("Buenos dias!", client, "Gym");
-      sendMsgToGroup(routine, client, "Gym");
-    }
-    setTimeout(interval, 3600000);
-  };
-  interval();
+  //   if (hour == 0) {
+  //     if (id_routine > routines.length) {
+  //       id_routine = 0;
+  //     } else {
+  //       id_routine++;
+  //     }
+  //   }
+  //   if (hour == 6) {
+  //     const routine = getRoutine(id_routine);
+  //     sendMsgToGroup("Buenos dias!", client, "Gym");
+  //     sendMsgToGroup(routine, client, "Gym");
+  //   }
+  //   setTimeout(interval, 3600000);
+  // };
+  // interval();
 });
 
 client.on("message", (msg) => {
   //command list
   commandList(msg);
 
-  if (msg.body === "!rutina") {
-    const routine = getRoutine(id_routine);
-    msg.reply(routine);
-  }
+  // if (msg.body === "!rutina") {
+  //   const routine = getRoutine(id_routine);
+  //   msg.reply(routine);
+  // }
 
   if (msg.body === "!sticker") {
     if (msg.hasMedia) {
@@ -159,11 +159,11 @@ client.on("message_create", (msg) => {
     //command list
     commandList(msg);
 
-    if (msg.body === "!rutina") {
-      const routine = getRoutine(id_routine);
-      msg.reply(routine);
-      console.log("se envio este mensaje: ", routine);
-    }
+    // if (msg.body === "!rutina") {
+    //   const routine = getRoutine(id_routine);
+    //   msg.reply(routine);
+    //   console.log("se envio este mensaje: ", routine);
+    // }
 
     if (msg.body === "!sticker") {
       if (msg.hasMedia) {

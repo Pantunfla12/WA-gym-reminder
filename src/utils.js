@@ -62,9 +62,9 @@ const commandList = (msg) => {
     );
   }
 
-  if (msg.body === "!only") {
-    return msg.reply("🤨📸");
-  }
+  // if (msg.body === "!only") {
+  //   return msg.reply("🤨📸");
+  // }
 
   if (msg.body === "!ping") {
     msg.reply("pong!");
