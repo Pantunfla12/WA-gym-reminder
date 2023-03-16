@@ -2,15 +2,9 @@ const qrcode = require("qrcode-terminal");
 const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js");
 const fs = require("fs");
 const mime = require("mime-types");
-const {
-  sendMsgToGroup,
-  currentTime,
-  getRoutine,
-  commandList,
-} = require("./src/utils");
-const { routines } = require("./src/data");
+const { commandList } = require("./src/utils");
 
-// var id_routine = 0;
+const noler = MessageMedia.fromFilePath("./audios/nolerGod.mp3");
 const customId = "client-id";
 const authStrategy = new LocalAuth({ clientId: customId });
 
@@ -36,38 +30,38 @@ client.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
 });
 
-client.on("ready", () => {
+client.on("ready", async () => {
   console.log("Client is ready!");
-  // sendMsgToGroup("Bot is ready!", client, "Gym");
+  const groupName = "Parroquia";
 
-  // const interval = () => {
-  //   const hour = currentTime();
+  const group = await client.getChats().then((chats) => {
+    return chats.find((chat) => {
+      if (chat.isGroup && chat.name.includes(groupName)) {
+        return true;
+      }
+      return false;
+    });
+  });
 
-  //   if (hour == 0) {
-  //     if (id_routine > routines.length) {
-  //       id_routine = 0;
-  //     } else {
-  //       id_routine++;
-  //     }
-  //   }
-  //   if (hour == 6) {
-  //     const routine = getRoutine(id_routine);
-  //     sendMsgToGroup("Buenos dias!", client, "Gym");
-  //     sendMsgToGroup(routine, client, "Gym");
-  //   }
-  //   setTimeout(interval, 3600000);
-  // };
-  // interval();
+  if (group) {
+    const groupId = group.id._serialized;
+    const msg = "🔺Bot is ready!🔻";
+    const groupChat = await client.getChatById(groupId);
+    groupChat.sendMessage(msg);
+  } else {
+    console.log(
+      `No se ha encontrado ningún grupo que contenga la palabra "${groupName}".`
+    );
+  }
 });
 
 client.on("message", (msg) => {
   //command list
   commandList(msg);
 
-  // if (msg.body === "!rutina") {
-  //   const routine = getRoutine(id_routine);
-  //   msg.reply(routine);
-  // }
+  if (msg.body === "!noler") {
+    msg.reply(noler);
+  }
 
   if (msg.body === "!sticker") {
     if (msg.hasMedia) {
@@ -159,11 +153,9 @@ client.on("message_create", (msg) => {
     //command list
     commandList(msg);
 
-    // if (msg.body === "!rutina") {
-    //   const routine = getRoutine(id_routine);
-    //   msg.reply(routine);
-    //   console.log("se envio este mensaje: ", routine);
-    // }
+    if (msg.body === "!noler") {
+      msg.reply(noler);
+    }
 
     if (msg.body === "!sticker") {
       if (msg.hasMedia) {
