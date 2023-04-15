@@ -1,4 +1,7 @@
 const { comandos } = require("./data");
+const quotes = require("success-motivational-quotes");
+const quoteMsg =
+  quotes.getTodaysQuote().body + " - " + quotes.getTodaysQuote().by;
 
 const getMsgFromGroup = async (client, group) => {
   const chats = await client.getChats();
@@ -33,6 +36,13 @@ const commandList = (msg) => {
   if (msg.body === "!ping") {
     msg.reply("pong!");
   }
+
+  if (msg.body === "!furious") {
+    msg.reply(quoteMsg);
+  }
+  // if (msg.body === "!aimé") {
+  //   msg.reply("");
+  // }
 };
 
 module.exports = {

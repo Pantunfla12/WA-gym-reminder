@@ -3,7 +3,6 @@ const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js");
 const fs = require("fs");
 const mime = require("mime-types");
 const { commandList } = require("./src/utils");
-
 const noler = MessageMedia.fromFilePath("./audios/nolerGod.mp3");
 const customId = "client-id";
 const authStrategy = new LocalAuth({ clientId: customId });
@@ -55,7 +54,11 @@ client.on("ready", async () => {
   }
 });
 
-client.on("message", (msg) => {
+client.on("message", async (msg) => {
+  const contact = await msg.getContact();
+  // if (contact.number === "5218717680408") {
+  //   msg.reply("vayase a la verga viejo pendejo");
+  // } else {
   //command list
   commandList(msg);
 
@@ -144,6 +147,7 @@ client.on("message", (msg) => {
       "ya no se usa ese comando, usa *!comandos* para saber cuales son los comandos disponibles"
     );
   }
+  // }
 });
 
 //read my own messages
